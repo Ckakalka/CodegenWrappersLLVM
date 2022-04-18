@@ -1,0 +1,9 @@
+/media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Program/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Program/cmake-build-debug/CMakeFiles/edit_cache.dir
+/media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Program/cmake-build-debug/src/build/CMakeFiles/edit_cache.dir
+/media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Program/cmake-build-debug/src/build/CMakeFiles/rebuild_cache.dir
+/media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Program/cmake-build-debug/src/build/CMakeFiles/intrinsics_gen.dir
+/media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Program/cmake-build-debug/src/build/CMakeFiles/omp_gen.dir
+/media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Program/cmake-build-debug/src/build/CMakeFiles/Program.dir
+/media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Program/cmake-build-debug/src/build/CMakeFiles/acc_gen.dir
+/media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Program/cmake-build-debug/src/build/CMakeFiles/clang-tablegen-targets.dir
