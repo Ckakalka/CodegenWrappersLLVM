@@ -1,0 +1,34 @@
+#er #qqrq
+#er
+
+<class>
+class W_${ClassName} {
+public:
+    explicit W_${ClassName}(CodeGen* cg, llvm::Value* value, ${ClassName}* ${ClassName})
+        : cg_(cg), value_(value), ${ClassName}_(${ClassName})
+    {
+        Assert(value->getType() == PtrType_${ClassName});
+    }
+<\class>
+<method>
+    llvm::Value* get_${FieldName}(GsCodeGen::LlvmBuilder& b) {
+        return b.CreateStructGEP(value_, ${FieldNumber});
+    }
+<\method>
+<method>
+    llvm::Value* set_${FieldName}(GsCodeGen::LlvmBuilder& b) {
+        return b.CreateStructGEP(value_, ${FieldNumber});
+    }
+<\method>
+<class>
+private:
+    CodeGen* cg_;
+    llvm::Value* value_; // ${ClassName}
+    ${ClassName}* ${ClassName}_;
+<\class>
+
+
+
+<class>
+};
+<\class>
