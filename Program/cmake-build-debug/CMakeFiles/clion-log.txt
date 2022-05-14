@@ -1,7 +1,0 @@
-/snap/clion/184/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/184/bin/ninja/linux/ninja -DCMAKE_C_COMPILER=/bin/gcc -DCMAKE_CXX_COMPILER=/bin/g++ -G Ninja /media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Program
--- Found LLVM 13.0.0
--- Using LLVMConfig.cmake in: /usr/lib/llvm-13/cmake
--- LLVM_INCLUDE_DIRS=/usr/lib/llvm-13/include
--- Configuring done
--- Generating done
--- Build files have been written to: /media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Program/cmake-build-debug

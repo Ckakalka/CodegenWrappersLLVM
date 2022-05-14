@@ -1,0 +1,19 @@
+class W_Point {
+public:
+    explicit W_Point(CodeGen* cg, llvm::Value* value, Point* Point)
+        : cg_(cg), value_(value), Point_(Point)
+    {
+        Assert(value->getType() == PtrType_Point);
+    }
+private:
+    CodeGen* cg_;
+    llvm::Value* value_; // Point
+    Point* Point_;
+public:
+    llvm::Value* get_x(GsCodeGen::LlvmBuilder& b) {
+        return b.CreateStructGEP(value_, 0);
+    }
+    llvm::Value* get_y(GsCodeGen::LlvmBuilder& b) {
+        return b.CreateStructGEP(value_, 1);
+    }
+};
