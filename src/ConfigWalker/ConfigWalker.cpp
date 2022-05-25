@@ -5,6 +5,7 @@
 
 #include <cstring>
 #include <iostream>
+#include <sstream>
 
 #define currentCharacter (startOfFile[position])
 
@@ -69,14 +70,14 @@ bool ConfigWalker::goToNextBlock() {
 				++position;
 				returnIfEndOfFile();
 			}
-			++currentLine;
 		} else {
 			if (currentCharacter == '<') {
 				return true;
 			} else {
-				// Exception
-				std::cout << "Unexpected symbol " << currentCharacter << ". Expected <\n";
-				return false;
+				std::stringstream errorStream;
+				errorStream << "Unexpected character " << currentCharacter
+							<< ".\nThe beginning of the tag was expected (<).";
+				throw ConfigFormatException(errorStream.str());
 			}
 		}
 	}
@@ -110,15 +111,14 @@ MacroSubstitution ConfigWalker::getMacroSubstitution(const char *macroPtr, off_t
 	return macro;
 }
 
-// false если конец файла
-// исключения
 void ConfigWalker::checkMacroSubstitution(BlockBody &blockBody, int positionBeforeCommonStrings) {
 	++position;
 	checkEndOfFile();
-	// исключение
 	if (currentCharacter != '{') {
-		//		std::cout << "Met " << currentCharacter << ". But character { expected\n";
-		throw ConfigFormatException("Unexpected character\n");
+		std::stringstream errorStream;
+		errorStream << "Incorrect macro substitution: unexpected character " << currentCharacter
+					<< ", expected character \"}\".";
+		throw ConfigFormatException(errorStream.str());
 	}
 	// character '{'
 	off_t startPosition = position;
@@ -129,15 +129,12 @@ void ConfigWalker::checkMacroSubstitution(BlockBody &blockBody, int positionBefo
 	}
 	MacroSubstitution macro = getMacroSubstitution(startOfFile + startPosition + 1, position - startPosition - 1);
 
-	// исключение
 	if (macro.getName() == MacroSubstitution::Undefined) {
-		throw ConfigFormatException("Undefined MacroSubstitution\n");
+		throw ConfigFormatException("Undefined macro substitution.");
 	}
-	// исключение
 	if (!macro.isAvailable(lastHeader.getBlockName())) {
-		throw ConfigFormatException("Not available MacroSubstitution\n");
+		throw ConfigFormatException("Not available macro substitution.");
 	}
-	std::cout << "Found MacroSubstitution = " << macro.getNameCString() << "\n";
 	blockBody.macroSubstitutions.emplace_back(
 		std::make_pair(positionBeforeCommonStrings, &realMacroSubstitutions[macro.getName()]));
 }
@@ -159,15 +156,12 @@ void ConfigWalker::checkBlockHeader() {
 
 	BlockHeader header = getBlockHeader(startOfFile + startPosition + 1, position - startPosition - 1);
 
-	// exception
 	if (header.getBlockName() == BlockHeader::Undefined) {
-		throw ConfigFormatException("Undefined block\n");
+		throw ConfigFormatException("Undefined block type.");
 	}
-	// exception
 	if (!BlockHeader::isMatch(lastHeader, header)) {
-		throw ConfigFormatException("Unmatched blocks\n");
+		throw ConfigFormatException("Non-matching block tags.");
 	}
-	std::cout << "Found block opening = " << header.isOpening() << " " << header.getBlockNameCString() << "\n";
 	lastHeader = header;
 	++position;
 }
@@ -181,9 +175,8 @@ void ConfigWalker::blockBodyProcessing() {
 		++position;
 		checkEndOfFile();
 	}
-	// исключение
 	if (currentCharacter != '\n') {
-		throw ConfigFormatException("Expected new line\n");
+		throw ConfigFormatException("Expected new line after tag.");
 	}
 	++currentLine;
 	++position;
@@ -195,14 +188,10 @@ void ConfigWalker::blockBodyProcessing() {
 			case '\\':
 				++position;
 				checkEndOfFile();
-				//			if (returnIfEndOfFile()) {
-				//				std::cout << "Expected \\, $ or < but reached end of file\n";
-				//				return false;
-				//			}
-				// Exception
 				if (!(currentCharacter == '\\' || currentCharacter == '$' || currentCharacter == '<')) {
-					//					std::cout << "Expected \\, $ or < but found " << currentCharacter << "\n";
-					throw ConfigFormatException("Expected \\, $ or <\n");
+					std::stringstream errorStream;
+					errorStream << "Expected \\, $ or < but found " << currentCharacter << ".";
+					throw ConfigFormatException(errorStream.str());
 				} else {
 					// Shielding
 					// запоминаем пройденную строку за исключением слеша
@@ -210,7 +199,6 @@ void ConfigWalker::blockBodyProcessing() {
 														 position - startCommonString - 1);
 					++positionBeforeCommonStrings;
 					startCommonString = position;
-					std::cout << "Found shielding\n";
 					++position;
 				}
 				break;
@@ -230,9 +218,8 @@ void ConfigWalker::blockBodyProcessing() {
 				while (currentCharacter == '\r' || currentCharacter == '\t' || currentCharacter == ' ') {
 					--position;
 				}
-				// exception
 				if (currentCharacter != '\n') {
-					throw ConfigFormatException("Expected new line\n");
+					throw ConfigFormatException("Expected new line before tag.");
 				}
 				if (position > startCommonString) {
 					blockBody.commonStrings.emplace_back(startOfFile + startCommonString, position - startCommonString);

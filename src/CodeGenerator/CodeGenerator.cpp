@@ -7,8 +7,9 @@
 #include <sys/mman.h>
 #include <unistd.h>
 
-CodeGenerator::CodeGenerator(llvm::Module *module, ConfigWalker &configWalker, std::string &outputFilename)
-	: module(module), configWalker(configWalker), outputFilename(outputFilename) {}
+CodeGenerator::CodeGenerator(llvm::Module *module, ConfigWalker &configWalker,
+							 std::unordered_set<std::string> &classesForGen, std::string &outputFilename)
+	: module(module), configWalker(configWalker), classesForGen(classesForGen), outputFilename(outputFilename) {}
 
 void CodeGenerator::processModule() {
 	llvm::DebugInfoFinder Finder;
@@ -19,7 +20,8 @@ void CodeGenerator::processModule() {
 			const auto *cmpstType = reinterpret_cast<const llvm::DICompositeType *>(type);
 			if (cmpstType->getTag() == llvm::dwarf::DW_TAG_structure_type ||
 				cmpstType->getTag() == llvm::dwarf::DW_TAG_class_type) {
-				if (!(cmpstType->getDirectory().empty() || cmpstType->getName().empty())) {
+				if (!(cmpstType->getName().empty() ||
+					  (classesForGen.find(cmpstType->getName().str()) == classesForGen.end()))) {
 					cmpstTypes.push_back(cmpstType);
 					llvm::DINodeArray elements = cmpstType->getElements();
 					std::vector<const llvm::DIType *> validFields;
@@ -76,7 +78,7 @@ void CodeGenerator::generate() {
 	// TODO FileMapper
 	// TODO Trunc
 	if ((fd = open(outputFilename.c_str(), O_CREAT | O_RDWR)) < 0) {
-		std::cerr << "Error for opening file to writing\n";
+		std::cerr << "Error: can\'t open file " << outputFilename << " " << strerror(errno) << ".\n";
 		return;
 	}
 	//	/* find size of input file */
@@ -86,14 +88,13 @@ void CodeGenerator::generate() {
 	//	}
 	//
 	if (ftruncate(fd, (off_t)totalSize) == -1) {
-		std::cerr << "ftruncate error\n";
+		std::cerr << "Error: can\'t truncate file " << outputFilename << " " << strerror(errno) << ".\n";
 		close(fd);
 		return;
 	}
 	char *startFile;
 	if ((startFile = (char *)mmap(nullptr, totalSize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)) == MAP_FAILED) {
-		std::cout << "Can\'t mapped file\n";
-		perror("mapping ");
+		std::cerr << "Error: can\'t mmap " << outputFilename << " " << strerror(errno) << ".\n";
 		close(fd);
 		return;
 	}
@@ -103,8 +104,16 @@ void CodeGenerator::generate() {
 	};
 	blockPassing(codeWriter);
 
+	for (auto &cmpstType : cmpstTypes) {
+		classesForGen.erase(cmpstType->getName().str());
+	}
+
+	for (auto &classForGen : classesForGen) {
+		std::cout << "Warning: class/structure " << classForGen << " not found.\n";
+	}
+
 	if (munmap(startFile, totalSize) < 0) {
-		std::cout << "Can\'t unmap file\n";
+		std::cerr << "Error: can\'t munmap " << outputFilename << " " << strerror(errno) << ".\n";
 		return;
 	}
 }

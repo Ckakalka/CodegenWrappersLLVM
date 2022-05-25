@@ -30,7 +30,7 @@ include_directories(${LLVM_INCLUDE_DIRS})
 separate_arguments(LLVM_DEFINITIONS_LIST NATIVE_COMMAND ${LLVM_DEFINITIONS})
 add_definitions(${LLVM_DEFINITIONS_LIST})
 
-add_executable(Program main.cpp ConfigWalker/ConfigWalker.cpp ConfigWalker/ConfigWalker.h ConfigWalker/Block.cpp ConfigWalker/Block.h ConfigWalker/MacroSubstitution.cpp ConfigWalker/MacroSubstitution.h Translator/ClangLLVMIRTranslator.cpp Translator/ClangLLVMIRTranslator.h CodeGenerator/CodeGenerator.cpp CodeGenerator/CodeGenerator.h utils.h utils.cpp FileMapper/FileMapper.cpp FileMapper/FileMapper.h Translator/Translator.h ConfigWalker/ConfigFormatException.cpp ConfigWalker/ConfigFormatException.h)
+add_executable(Program main.cpp ConfigWalker/ConfigWalker.cpp ConfigWalker/ConfigWalker.h ConfigWalker/Block.cpp ConfigWalker/Block.h ConfigWalker/MacroSubstitution.cpp ConfigWalker/MacroSubstitution.h Translator/ClangLLVMIRTranslator.cpp Translator/ClangLLVMIRTranslator.h CodeGenerator/CodeGenerator.cpp CodeGenerator/CodeGenerator.h utils.h utils.cpp FileMapper/FileMapper.cpp FileMapper/FileMapper.h Translator/Translator.h ConfigWalker/ConfigFormatException.cpp ConfigWalker/ConfigFormatException.h Translator/TranslatorException.cpp Translator/TranslatorException.h)
 
 #llvm_map_components_to_libnames(llvm_libs support core irreader)
 

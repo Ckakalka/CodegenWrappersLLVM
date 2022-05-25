@@ -7,9 +7,11 @@
 
 #include <llvm/IR/Module.h>
 #include <memory>
+#include <unordered_set>
 class CodeGenerator {
 public:
-	CodeGenerator(llvm::Module *module, ConfigWalker &configWalker, std::string &outputFilename);
+	CodeGenerator(llvm::Module *module, ConfigWalker &configWalker, std::unordered_set<std::string> &classesForGen,
+				  std::string &outputFilename);
 	void generate();
 
 private:
@@ -17,6 +19,7 @@ private:
 	void blockPassing(const std::function<void(int)> &action);
 	llvm::Module *module;
 	ConfigWalker &configWalker;
+	std::unordered_set<std::string> classesForGen;
 	std::string outputFilename;
 	// Classes and structures
 	std::vector<const llvm::DICompositeType *> cmpstTypes;

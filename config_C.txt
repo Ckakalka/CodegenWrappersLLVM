@@ -1,0 +1,30 @@
+# comment
+<class>
+typedef struct W_${ClassName} {
+    LLVMValueRef value_; // ${ClassName}
+    ${ClassName} *${ClassName}_;
+} W_${ClassName};
+
+createW_${ClassName}(W_${ClassName} *w_${ClassName}, LLVMValueRef value, ${ClassName} *${ClassName}_) {
+    w_${ClassName}->value_ = value;
+    w_${ClassName}->${ClassName}_ = ${ClassName}_;
+}
+<\class>
+
+<method>
+LLVMValueRef w_${ClassName}Get_${FieldName}(W_${ClassName} *w_${ClassName}, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_${ClassName}->value, ${FieldNumber}, "&${FieldName}");
+}
+<\method>
+
+<method>
+LLVMValueRef w_${ClassName}GetReg_${FieldName}(W_${ClassName} *w_${ClassName}, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_${ClassName}Get_${FieldName}(w_${ClassName}, b), "${FieldName}");
+}
+<\method>
+
+<method>
+LLVMValueRef w_${ClassName}Set_${FieldName}(W_${ClassName} *w_${ClassName}, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_${ClassName}Get_${FieldName}(w_${ClassName}, b));
+}
+<\method>

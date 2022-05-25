@@ -1,19 +1,342 @@
-class W_Point {
-public:
-    explicit W_Point(CodeGen* cg, llvm::Value* value, Point* Point)
-        : cg_(cg), value_(value), Point_(Point)
-    {
-        Assert(value->getType() == PtrType_Point);
-    }
-private:
-    CodeGen* cg_;
-    llvm::Value* value_; // Point
-    Point* Point_;
-public:
-    llvm::Value* get_x(GsCodeGen::LlvmBuilder& b) {
-        return b.CreateStructGEP(value_, 0);
-    }
-    llvm::Value* get_y(GsCodeGen::LlvmBuilder& b) {
-        return b.CreateStructGEP(value_, 1);
-    }
-};
+typedef struct W_PLpgSQL_execstate {
+    LLVMValueRef value_; // PLpgSQL_execstate
+    PLpgSQL_execstate *PLpgSQL_execstate_;
+} W_PLpgSQL_execstate;
+
+createW_PLpgSQL_execstate(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, PLpgSQL_execstate *PLpgSQL_execstate_) {
+    w_PLpgSQL_execstate->value_ = value;
+    w_PLpgSQL_execstate->PLpgSQL_execstate_ = PLpgSQL_execstate_;
+}
+LLVMValueRef w_PLpgSQL_execstateGet_func(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 0, "&func");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_trigdata(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 1, "&trigdata");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_evtrigdata(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 2, "&evtrigdata");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_retval(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 3, "&retval");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_retisnull(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 4, "&retisnull");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_rettype(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 5, "&rettype");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_fn_rettype(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 6, "&fn_rettype");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_retistuple(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 7, "&retistuple");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_retisset(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 8, "&retisset");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_readonly_func(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 9, "&readonly_func");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_atomic(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 10, "&atomic");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_exitlabel(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 11, "&exitlabel");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_cur_error(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 12, "&cur_error");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_tuple_store(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 13, "&tuple_store");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_tuple_store_desc(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 14, "&tuple_store_desc");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_tuple_store_cxt(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 15, "&tuple_store_cxt");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_tuple_store_owner(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 16, "&tuple_store_owner");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_rsi(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 17, "&rsi");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_found_varno(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 18, "&found_varno");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_ndatums(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 19, "&ndatums");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_datums(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 20, "&datums");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_datum_context(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 21, "&datum_context");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_paramLI(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 22, "&paramLI");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_simple_eval_estate(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 23, "&simple_eval_estate");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_simple_eval_resowner(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 24, "&simple_eval_resowner");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_procedure_resowner(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 25, "&procedure_resowner");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_cast_hash(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 26, "&cast_hash");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_cast_hash_context(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 27, "&cast_hash_context");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_stmt_mcontext(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 28, "&stmt_mcontext");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_stmt_mcontext_parent(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 29, "&stmt_mcontext_parent");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_eval_tuptable(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 30, "&eval_tuptable");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_eval_processed(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 31, "&eval_processed");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_eval_econtext(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 32, "&eval_econtext");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_err_stmt(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 33, "&err_stmt");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_err_var(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 34, "&err_var");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_err_text(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 35, "&err_text");
+}
+LLVMValueRef w_PLpgSQL_execstateGet_plugin_info(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildStructGEP(b, w_PLpgSQL_execstate->value, 36, "&plugin_info");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_func(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_func(w_PLpgSQL_execstate, b), "func");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_trigdata(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_trigdata(w_PLpgSQL_execstate, b), "trigdata");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_evtrigdata(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_evtrigdata(w_PLpgSQL_execstate, b), "evtrigdata");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_retval(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_retval(w_PLpgSQL_execstate, b), "retval");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_retisnull(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_retisnull(w_PLpgSQL_execstate, b), "retisnull");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_rettype(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_rettype(w_PLpgSQL_execstate, b), "rettype");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_fn_rettype(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_fn_rettype(w_PLpgSQL_execstate, b), "fn_rettype");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_retistuple(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_retistuple(w_PLpgSQL_execstate, b), "retistuple");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_retisset(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_retisset(w_PLpgSQL_execstate, b), "retisset");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_readonly_func(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_readonly_func(w_PLpgSQL_execstate, b), "readonly_func");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_atomic(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_atomic(w_PLpgSQL_execstate, b), "atomic");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_exitlabel(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_exitlabel(w_PLpgSQL_execstate, b), "exitlabel");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_cur_error(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_cur_error(w_PLpgSQL_execstate, b), "cur_error");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_tuple_store(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_tuple_store(w_PLpgSQL_execstate, b), "tuple_store");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_tuple_store_desc(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_tuple_store_desc(w_PLpgSQL_execstate, b), "tuple_store_desc");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_tuple_store_cxt(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_tuple_store_cxt(w_PLpgSQL_execstate, b), "tuple_store_cxt");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_tuple_store_owner(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_tuple_store_owner(w_PLpgSQL_execstate, b), "tuple_store_owner");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_rsi(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_rsi(w_PLpgSQL_execstate, b), "rsi");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_found_varno(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_found_varno(w_PLpgSQL_execstate, b), "found_varno");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_ndatums(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_ndatums(w_PLpgSQL_execstate, b), "ndatums");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_datums(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_datums(w_PLpgSQL_execstate, b), "datums");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_datum_context(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_datum_context(w_PLpgSQL_execstate, b), "datum_context");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_paramLI(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_paramLI(w_PLpgSQL_execstate, b), "paramLI");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_simple_eval_estate(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_simple_eval_estate(w_PLpgSQL_execstate, b), "simple_eval_estate");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_simple_eval_resowner(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_simple_eval_resowner(w_PLpgSQL_execstate, b), "simple_eval_resowner");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_procedure_resowner(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_procedure_resowner(w_PLpgSQL_execstate, b), "procedure_resowner");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_cast_hash(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_cast_hash(w_PLpgSQL_execstate, b), "cast_hash");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_cast_hash_context(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_cast_hash_context(w_PLpgSQL_execstate, b), "cast_hash_context");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_stmt_mcontext(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_stmt_mcontext(w_PLpgSQL_execstate, b), "stmt_mcontext");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_stmt_mcontext_parent(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_stmt_mcontext_parent(w_PLpgSQL_execstate, b), "stmt_mcontext_parent");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_eval_tuptable(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_eval_tuptable(w_PLpgSQL_execstate, b), "eval_tuptable");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_eval_processed(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_eval_processed(w_PLpgSQL_execstate, b), "eval_processed");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_eval_econtext(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_eval_econtext(w_PLpgSQL_execstate, b), "eval_econtext");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_err_stmt(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_err_stmt(w_PLpgSQL_execstate, b), "err_stmt");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_err_var(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_err_var(w_PLpgSQL_execstate, b), "err_var");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_err_text(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_err_text(w_PLpgSQL_execstate, b), "err_text");
+}
+LLVMValueRef w_PLpgSQL_execstateGetReg_plugin_info(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMBuilderRef b) {
+    return __LLVMBuildLoad(b, w_PLpgSQL_execstateGet_plugin_info(w_PLpgSQL_execstate, b), "plugin_info");
+}
+LLVMValueRef w_PLpgSQL_execstateSet_func(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_func(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_trigdata(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_trigdata(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_evtrigdata(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_evtrigdata(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_retval(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_retval(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_retisnull(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_retisnull(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_rettype(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_rettype(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_fn_rettype(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_fn_rettype(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_retistuple(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_retistuple(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_retisset(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_retisset(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_readonly_func(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_readonly_func(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_atomic(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_atomic(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_exitlabel(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_exitlabel(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_cur_error(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_cur_error(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_tuple_store(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_tuple_store(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_tuple_store_desc(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_tuple_store_desc(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_tuple_store_cxt(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_tuple_store_cxt(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_tuple_store_owner(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_tuple_store_owner(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_rsi(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_rsi(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_found_varno(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_found_varno(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_ndatums(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_ndatums(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_datums(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_datums(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_datum_context(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_datum_context(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_paramLI(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_paramLI(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_simple_eval_estate(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_simple_eval_estate(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_simple_eval_resowner(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_simple_eval_resowner(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_procedure_resowner(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_procedure_resowner(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_cast_hash(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_cast_hash(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_cast_hash_context(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_cast_hash_context(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_stmt_mcontext(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_stmt_mcontext(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_stmt_mcontext_parent(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_stmt_mcontext_parent(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_eval_tuptable(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_eval_tuptable(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_eval_processed(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_eval_processed(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_eval_econtext(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_eval_econtext(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_err_stmt(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_err_stmt(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_err_var(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_err_var(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_err_text(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_err_text(w_PLpgSQL_execstate, b));
+}
+LLVMValueRef w_PLpgSQL_execstateSet_plugin_info(W_PLpgSQL_execstate *w_PLpgSQL_execstate, LLVMValueRef value, LLVMBuilderRef b) {
+    return __LLVMBuildStore(b, value, w_PLpgSQL_execstateGet_plugin_info(w_PLpgSQL_execstate, b));
+}

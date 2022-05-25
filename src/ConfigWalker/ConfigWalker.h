@@ -15,6 +15,7 @@ public:
 	ConfigWalker(const char *startOfFile, off_t length);
 	~ConfigWalker();
 	static bool strCmpr(const char *first, off_t sizeFirst, const char *second, off_t sizeSecond);
+	off_t getCurrentLine() const { return currentLine; }
 	bool goToNextBlock();
 	void checkBlockHeader();
 	void checkMacroSubstitution(BlockBody &blockBody, int positionBeforeCommonStrings);
