@@ -1,5 +1,5 @@
 # Description
-TODO
+Test
 ## Usage
 `-c
 "/media/valeriy/cbbdec04-2749-4d0d-9d0a-bb4c4eaa0f68/Documents/4_course/Diplom/Diplom/config_C.txt"

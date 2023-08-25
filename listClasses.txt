@@ -1,2 +1,7 @@
 PLpgSQL_execstate
-Point
+OpExpr
+ScalarArrayOpExpr
+NullTest
+BooleanTest
+BoolExpr
+ArrayExpr

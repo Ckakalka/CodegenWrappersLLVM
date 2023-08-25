@@ -57,7 +57,6 @@ std::unique_ptr<llvm::Module> ClangLLVMIRTranslator::getLLVMModule() {
 		throw TranslatorException("Cannot execute action with compiler instance.");
 	}
 
-	// Runtime LLVM Module
 	std::unique_ptr<llvm::Module> module = action->takeModule();
 	if (!module) {
 		throw TranslatorException("Cannot retrieve IR module.");

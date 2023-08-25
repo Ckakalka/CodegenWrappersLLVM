@@ -1,9 +1,7 @@
-# comment
-
 <class>
 class W_${ClassName} {
 public:
-    explicit W_${ClassName}(llvm::V alue* value, ${ClassName}* ${ClassName})
+    explicit W_${ClassName}(llvm::Value* value, ${ClassName}* ${ClassName})
         : value_(value), ${ClassName}_(${ClassName})
     {
         Assert(value->getType() == PtrType_${ClassName});
@@ -19,6 +17,19 @@ public:
         return b.CreateStructGEP(value_, ${FieldNumber});
     }
 <\method>
+
+<method>
+    llvm::Value* getReg_${FieldName}(llvm::IRBuilder& b) {
+        return b.CreateLoad(get_${FieldName}(b));
+    }
+<\method>
+
+<method>
+    llvm::Value* set_${FieldName}(llvm::IRBuilder& b, llvm::Value* value) {
+        return b.CreateStore(value, get_${FieldName}(b));
+    }
+<\method>
+
 
 <class>
 };
